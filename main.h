@@ -7,7 +7,12 @@
 #include <stdbool.h>
 #include "file.h"
 
-void parseWordFile();
+void readStdIn();
+void readCmdLine(int argc, char *argv[]);
+void readEnv();
+void readFile(char *path);
+
+void parseOpenFile();
 char toLower(char c);
 bool isLetter(char c);
 

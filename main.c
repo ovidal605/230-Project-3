@@ -8,36 +8,16 @@ int main(int argc, char *argv[], char *envp[])
 
   if (argc == 1) // Read from STDIN
   {
-    setFile(STDIN_FILENO);
-    parseWordFile();
+    readStdIn();
   }
   else if (argc > 1) // Read from commandline arguments
   {
-    for (int i = 1; i < argc; i++)
-    {
-      int fd = openFile(argv[i]);
-
-      if (fd == -1)
-      {
-        // REPLACE WITH SYSTEM CALL
-        printf("File %s not found.\n", argv[i]);
-        exit(0);
-      }
-
-      parseWordFile();
-
-      closeFile(fd);
-    }
+    readCmdLine(argc, argv);
   }
 
-  /* Read from environment variable
-  char *value = getenv("WORD_FREAK");
-  if (value)
-  {
+  // Read from environment variable
+  readEnv();
 
-  }
-
-*/
   return 0;
 }
 
@@ -56,7 +36,46 @@ bool isLetter(char c)
   return (c >= 65 && c <= 90) || (c >= 97 && c <= 122);
 }
 
-void parseWordFile()
+void readStdIn()
+{
+  setFile(STDIN_FILENO);
+  parseOpenFile();
+}
+
+void readCmdLine(int argc, char *argv[])
+{
+  for (int i = 1; i < argc; i++)
+  {
+    readFile(argv[i]);
+  }
+}
+
+void readEnv()
+{
+  char *value = getenv("WORD_FREAK");
+  if (value)
+  {
+    readFile(value);
+  }
+}
+
+void readFile(char *path)
+{
+  int fd = openFile(path);
+
+  if (fd == -1)
+  {
+    // REPLACE WITH SYSTEM CALL
+    printf("File %s not found.\n", path);
+    exit(0);
+  }
+
+  parseOpenFile();
+
+  closeFile(fd);
+}
+
+void parseOpenFile()
 {
   // current word being built
   char *word = malloc(100 * sizeof(char));

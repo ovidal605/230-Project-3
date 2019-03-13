@@ -38,8 +38,9 @@ bool isLetter(char c)
 
 void readStdIn()
 {
-  setFile(STDIN_FILENO);
-  parseOpenFile();
+  FileReader *reader = createReader(STDIN_FILENO);
+  parseFile(reader);
+  closeReader(reader);
 }
 
 void readCmdLine(int argc, char *argv[])
@@ -61,21 +62,22 @@ void readEnv()
 
 void readFile(char *path)
 {
-  int fd = openFile(path);
+  FileReader *reader = openFile(path);
 
-  if (fd == -1)
+  if (!reader)
   {
     // REPLACE WITH SYSTEM CALL
-    printf("File %s not found.\n", path);
-    exit(0);
+    printf("File %s not found. Skipping.\n", path);
+    closeReader(reader);
+    return;
   }
 
-  parseOpenFile();
+  parseFile(reader);
 
-  closeFile(fd);
+  closeReader(reader);
 }
 
-void parseOpenFile()
+void parseFile(FileReader *reader)
 {
   // current word being built
   char *word = malloc(100 * sizeof(char));
@@ -86,7 +88,7 @@ void parseOpenFile()
   int pos = 0;
 
   // while we are not at the end of the file, build words
-  while ((c = getNextChar()) != END)
+  while ((c = getNextChar(reader)) != END)
   {
 
     // if the next char is a letter add it to the word

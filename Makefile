@@ -1,5 +1,5 @@
-SRC = main.c dictionary.c file.c
-OBJ = main.o dictionary.o file.o
+SRC = main.c dictionary.c fileReader.c
+OBJ = main.o dictionary.o fileReader.o
 PROG = a.out
 
 $(PROG): $(OBJ)

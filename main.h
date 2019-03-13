@@ -5,14 +5,14 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdbool.h>
-#include "file.h"
+#include "fileReader.h"
 
 void readStdIn();
 void readCmdLine(int argc, char *argv[]);
 void readEnv();
 void readFile(char *path);
 
-void parseOpenFile();
+void parseFile(FileReader *reader);
 char toLower(char c);
 bool isLetter(char c);
 

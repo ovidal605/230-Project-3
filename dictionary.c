@@ -1,9 +1,7 @@
 #include "dictionary.h"
-#include <string.h>
-#include <stdlib.h>
 
-
-Dictionary *dict_create(char *w, int c, Dictionary *n){
+Dictionary *dict_create(char *w, int c, Dictionary *n)
+{
     char *wordCopy = malloc(strlen(w));
 
     Dictionary *newDict = (Dictionary *)malloc(sizeof(Dictionary));
@@ -15,38 +13,43 @@ Dictionary *dict_create(char *w, int c, Dictionary *n){
     return newDict;
 }
 
-void word_increase(Dictionary *currWord){
+void word_increase(Dictionary *currWord)
+{
     ++(currWord->count);
 }
 
-char *get_word(Dictionary *dict){
+char *get_word(Dictionary *dict)
+{
     return dict->word;
 }
 
-int get_int(Dictionary *dict){
+int get_int(Dictionary *dict)
+{
     return dict->count;
 }
 
-Dictionary *get_next(Dictionary *dict){
+Dictionary *get_next(Dictionary *dict)
+{
     return dict->next;
 }
 
-void add_word(char word[], Dictionary *dict){ 
-  Dictionary *currWord = dict;
+void add_word(char word[], Dictionary *dict)
+{
+    Dictionary *currWord = dict;
 
-  while(currWord->next != NULL){
-    if(strcmp(dict->word, word) == 0){
-    ++dict->count;
-    return;
+    while (currWord->next != NULL)
+    {
+        if (strcmp(dict->word, word) == 0)
+        {
+            ++dict->count;
+            return;
+        }
     }
-  }
 
-  Dictionary *newWord = malloc(sizeof(Dictionary));
-  newWord->word = word;
-  newWord->count = 1;
-  newWord->next = NULL;
+    Dictionary *newWord = malloc(sizeof(Dictionary));
+    newWord->word = word;
+    newWord->count = 1;
+    newWord->next = NULL;
 
-  currWord->next = newWord;
+    currWord->next = newWord;
 }
-
- 

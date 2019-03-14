@@ -1,9 +1,13 @@
 #ifndef __DICTIONARY_H
 #define __DICTIONARY_H
 
-typedef struct Dictionary{
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct Dictionary
+{
     char *word;
-    int count; 
+    int count;
     struct Dictionary *next;
 } Dictionary;
 

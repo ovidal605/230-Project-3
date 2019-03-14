@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "dictionary.c"
 #include "main.h"
 
 int main(int argc, char *argv[], char *envp[])
@@ -79,6 +80,7 @@ void readFile(char *path)
 
 void parseFile(FileReader *reader)
 {
+  Dictionary *dict = dict_create("HEAD", 0, NULL);
   // current word being built
   char *word = malloc(100 * sizeof(char));
 
@@ -105,7 +107,7 @@ void parseFile(FileReader *reader)
         // add the null character to make it a string
         word[pos] = '\0';
 
-        printf("%s\n", word); // REPLACE WITH ADDING TO DICTIONARY
+        add_word(word, dict); // REPLACE WITH ADDING TO DICTIONARY
 
         free(word);
         word = malloc(100 * sizeof(char));

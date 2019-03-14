@@ -49,4 +49,4 @@ void add_word(char word[], Dictionary *dict){
   currWord->next = newWord;
 }
 
-
+ 

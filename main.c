@@ -11,17 +11,21 @@ int main(int argc, char *argv[], char *envp[])
   printStr("Word Freak Text Analyzer\n");
   printStr("------------------------\n");
 
+  Dictionary *dict = dict_create("HEAD", 0, NULL);
+
   if (argc == 1) // Read from STDIN
   {
-    readStdIn();
+    readStdIn(dict);
   }
   else if (argc > 1) // Read from commandline arguments
   {
-    readCmdLine(argc, argv);
+    readCmdLine(dict, argc, argv);
   }
 
   // Read from environment variable
-  readEnv();
+  readEnv(dict);
+
+  print_dict(dict);
 
   return 0;
 }
@@ -41,31 +45,31 @@ bool isLetter(char c)
   return (c >= 65 && c <= 90) || (c >= 97 && c <= 122);
 }
 
-void readStdIn()
+void readStdIn(Dictionary *dict)
 {
   FileReader *reader = createReader(STDIN_FILENO);
-  parseFile(reader);
+  parseFile(dict, reader);
   closeReader(reader);
 }
 
-void readCmdLine(int argc, char *argv[])
+void readCmdLine(Dictionary *dict, int argc, char *argv[])
 {
   for (int i = 1; i < argc; i++)
   {
-    readFile(argv[i]);
+    readFile(dict, argv[i]);
   }
 }
 
-void readEnv()
+void readEnv(Dictionary *dict)
 {
   char *value = getenv("WORD_FREAK");
   if (value)
   {
-    readFile(value);
+    readFile(dict, value);
   }
 }
 
-void readFile(char *path)
+void readFile(Dictionary *dict, char *path)
 {
   FileReader *reader = openFile(path);
 
@@ -77,14 +81,13 @@ void readFile(char *path)
     return;
   }
 
-  parseFile(reader);
+  parseFile(dict, reader);
 
   closeReader(reader);
 }
 
-void parseFile(FileReader *reader)
+void parseFile(Dictionary *dict, FileReader *reader)
 {
-  Dictionary *dict = dict_create("HEAD", 0, NULL);
 
   // current word being built
   char *word = malloc(100 * sizeof(char));
@@ -130,6 +133,4 @@ void parseFile(FileReader *reader)
 
     free(word);
   }
-
-  print_dict(dict);
 }

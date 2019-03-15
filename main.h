@@ -7,12 +7,12 @@
 #include <stdbool.h>
 #include "fileReader.h"
 
-void readStdIn();
-void readCmdLine(int argc, char *argv[]);
-void readEnv();
-void readFile(char *path);
+void readStdIn(Dictionary *dict);
+void readCmdLine(Dictionary *dict, int argc, char *argv[]);
+void readEnv(Dictionary *dict);
+void readFile(Dictionary *dict, char *path);
 
-void parseFile(FileReader *reader);
+void parseFile(Dictionary *dict, FileReader *reader);
 char toLower(char c);
 bool isLetter(char c);
 

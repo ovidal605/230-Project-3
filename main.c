@@ -102,7 +102,7 @@ void parseFile(Dictionary *dict, FileReader *reader)
   {
 
     // if the next char is a letter add it to the word
-    if (isLetter(c))
+    if (isLetter(c) || c == '\'')
     {
       word[pos] = toLower(c);
       pos++;

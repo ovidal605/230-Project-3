@@ -120,9 +120,8 @@ void parseFile(FileReader *reader)
   // Add the last word that was being built
   word[pos] = '\0';
 
-  //printf("%s\n", word); // REPLACE WITH ADDING TO DICTIONARY
-  add_word(word, dict);
-  
+  add_word(word, dict); // REPLACE WITH ADDING TO DICTIONARY
+
   free(word);
 
   print_dict(dict);

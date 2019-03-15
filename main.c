@@ -6,7 +6,6 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-
   if (argc == 1) // Read from STDIN
   {
     readStdIn();
@@ -81,6 +80,7 @@ void readFile(char *path)
 void parseFile(FileReader *reader)
 {
   Dictionary *dict = dict_create("HEAD", 0, NULL);
+  
   // current word being built
   char *word = malloc(100 * sizeof(char));
 
@@ -107,6 +107,7 @@ void parseFile(FileReader *reader)
         // add the null character to make it a string
         word[pos] = '\0';
 
+        //printf("%s\n", word);
         add_word(word, dict); // REPLACE WITH ADDING TO DICTIONARY
 
         free(word);
@@ -119,7 +120,10 @@ void parseFile(FileReader *reader)
   // Add the last word that was being built
   word[pos] = '\0';
 
-  printf("%s\n", word); // REPLACE WITH ADDING TO DICTIONARY
-
+  //printf("%s\n", word); // REPLACE WITH ADDING TO DICTIONARY
+  add_word(word, dict);
+  
   free(word);
+
+  print_dict(dict);
 }

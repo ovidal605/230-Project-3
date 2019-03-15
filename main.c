@@ -3,9 +3,14 @@
 #include <unistd.h>
 #include "dictionary.h"
 #include "main.h"
+#include "printer.h"
 
 int main(int argc, char *argv[], char *envp[])
 {
+
+  printStr("Word Freak Text Analyzer\n");
+  printStr("------------------------\n");
+
   if (argc == 1) // Read from STDIN
   {
     readStdIn();
@@ -67,7 +72,7 @@ void readFile(char *path)
   if (!reader)
   {
     // REPLACE WITH SYSTEM CALL
-    printf("File %s not found. Skipping.\n", path);
+    printStr("Invalid input file. Skipping.\n");
     closeReader(reader);
     return;
   }

@@ -74,7 +74,7 @@ void print_dict(Dictionary *dict)
 
     while (dict != NULL)
     {
-        printf("%s: %i\n", dict->word, get_int(dict));
+        printKeyValuePair(dict->word, get_int(dict), 26);
         dict = get_next(dict);
     }
 }

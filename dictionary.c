@@ -12,6 +12,8 @@ Dictionary *dict_create(char *w, int c, Dictionary *n)
     newDict->count = c;
     newDict->next = n;
 
+    //printf("Copy: %s\n", wordCopy);
+
     return newDict;
 }
 
@@ -49,20 +51,20 @@ void add_word(char *word, Dictionary *dict)
     else
     {
         Dictionary *currWord = get_next(dict);
-
-        while (get_next(currWord) != NULL)
+        Dictionary *lastWord = dict;
+        while (currWord != NULL)
         {
             if (strcmp(currWord->word, word) == 0)
             {
                 word_increase(currWord);
                 return;
             }
+            lastWord = currWord;
             currWord = get_next(currWord);
         }
 
         Dictionary *newWord = dict_create(word, 1, NULL);
-
-        set_next(currWord, newWord);
+        set_next(lastWord, newWord);
     }
 }
 
@@ -70,7 +72,7 @@ void print_dict(Dictionary *dict)
 {
     dict = get_next(dict);
 
-    while (get_next(dict) != NULL)
+    while (dict != NULL)
     {
         printf("%s: %i\n", dict->word, get_int(dict));
         dict = get_next(dict);

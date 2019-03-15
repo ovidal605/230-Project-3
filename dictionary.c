@@ -72,9 +72,17 @@ void print_dict(Dictionary *dict)
 {
     dict = get_next(dict);
 
+    int counter = 0;
+
     while (dict != NULL)
     {
         printKeyValuePair(dict->word, get_int(dict), 26);
         dict = get_next(dict);
+        if(counter == 15){
+            printf("Press ENTER to view the next 15 words.\n\n");
+            getchar();
+            counter = 0;
+        }
+        ++counter;
     }
 }

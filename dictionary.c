@@ -1,10 +1,9 @@
 #include "dictionary.h"
 
-
 Dictionary *dict_create(char *w, int c, Dictionary *n)
 {
-    
-    char *wordCopy = malloc(strlen(w));
+
+    char *wordCopy = malloc((strlen(w) + 1) * sizeof(char));
     strcpy(wordCopy, w);
 
     Dictionary *newDict = (Dictionary *)malloc(sizeof(Dictionary));
@@ -35,20 +34,24 @@ Dictionary *get_next(Dictionary *dict)
 {
     return dict->next;
 }
-void set_next(Dictionary *dict, Dictionary *next){
+void set_next(Dictionary *dict, Dictionary *next)
+{
     dict->next = next;
 }
 
 void add_word(char *word, Dictionary *dict)
 {
-    if(get_next(dict) == NULL){
+    if (get_next(dict) == NULL)
+    {
         Dictionary *newWord = dict_create(word, 1, NULL);
         set_next(dict, newWord);
     }
-    else{
+    else
+    {
         Dictionary *currWord = get_next(dict);
 
-        while (get_next(currWord) != NULL){
+        while (get_next(currWord) != NULL)
+        {
             if (strcmp(currWord->word, word) == 0)
             {
                 word_increase(currWord);
@@ -60,11 +63,11 @@ void add_word(char *word, Dictionary *dict)
         Dictionary *newWord = dict_create(word, 1, NULL);
 
         set_next(currWord, newWord);
-
     }
 }
 
-void print_dict(Dictionary *dict){
+void print_dict(Dictionary *dict)
+{
     dict = get_next(dict);
 
     while (get_next(dict) != NULL)

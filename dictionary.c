@@ -86,3 +86,8 @@ void print_dict(Dictionary *dict)
         ++counter;
     }
 }
+
+void free_dict(Dictionary dict){
+    free(dict->word);
+    free(dict);
+}

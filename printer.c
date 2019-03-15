@@ -12,11 +12,14 @@ void printStr(char *str)
 
 void printKeyValuePair(char *key, int value, int whitespace)
 {
-  char *str = (char *)calloc(40, sizeof(char));
+  char str[60];
 
-  sprintf(str, "%-*s:%8i\n", whitespace, key, value);
-  //printf("%s", str);
-  printCharArr(str, 40);
+  for (int i = 0; i < 60; i++)
+  {
+    str[i] = ' ';
+  }
 
-  free(str);
+  int size = sprintf(str, "%-*s:%8i\n", whitespace, key, value);
+
+  printCharArr(str, size);
 }

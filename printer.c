@@ -1,5 +1,6 @@
 #include "printer.h"
 
+//Prints the word
 void printCharArr(char *arr, int length)
 {
   if (write(STDOUT_FILENO, arr, length) == -1)
@@ -8,11 +9,13 @@ void printCharArr(char *arr, int length)
   }
 }
 
+//Prints the word
 void printStr(char *str)
 {
   printCharArr(str, strlen(str));
 }
 
+//Prints an error message
 void printErr(int err)
 {
   char out[50];
@@ -20,6 +23,7 @@ void printErr(int err)
   printCharArr(out, size);
 }
 
+//Prints the word along with its count
 void printKeyValuePair(char *key, int value, int whitespace)
 {
   char str[60];

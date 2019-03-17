@@ -10,6 +10,7 @@
 #define BUF_SIZE 1024
 #define END 3
 
+//FileReader struct
 typedef struct
 {
   int fd;
@@ -17,17 +18,17 @@ typedef struct
   char *buffer;
 } FileReader;
 
-FileReader *createReader(int fd);
-FileReader *openFile(char *path);
-int closeReader(FileReader *reader);
-
-char getNextChar(FileReader *reader);
-
-int getFileReaderFD(FileReader *reader);
-int getFileReaderOffset(FileReader *reader);
-char *getFileReaderBuffer(FileReader *reader);
-
+//Prototypes
 void setFileReaderFD(FileReader *reader, int fd);
 void setFileReaderOffset(FileReader *reader, int offset);
 
+FileReader *createReader(int fd);
+FileReader *openFile(char *path);
+
+int closeReader(FileReader *reader);
+int getFileReaderFD(FileReader *reader);
+int getFileReaderOffset(FileReader *reader);
+
+char getNextChar(FileReader *reader);
+char *getFileReaderBuffer(FileReader *reader);
 #endif

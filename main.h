@@ -7,13 +7,14 @@
 #include <stdbool.h>
 #include "fileReader.h"
 
+//Prototypes
 void readStdIn(Dictionary *dict);
 void readCmdLine(Dictionary *dict, int argc, char *argv[]);
 void readEnv(Dictionary *dict);
 void readFile(Dictionary *dict, char *path);
-
 void parseFile(Dictionary *dict, FileReader *reader);
-char toLower(char c);
-bool isLetter(char c);
 
+char toLower(char c);
+
+bool isLetter(char c);
 #endif

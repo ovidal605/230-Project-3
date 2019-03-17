@@ -7,18 +7,21 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-
+  //Title
   printStr("Word Freak Text Analyzer\n");
   printStr("------------------------\n");
 
+  //Creates Dictionary
   Dictionary *dict = dict_create("HEAD", 0, NULL);
 
-  if (argc == 1) // Read from STDIN
+  //If there are no command line arguments read from STDIN
+  if (argc == 1)
   {
     readStdIn(dict);
     printStr("\n");
   }
-  else if (argc > 1) // Read from commandline arguments
+  //If there are more than one command line arguments read from commandline arguments
+  else if (argc > 1)
   {
     readCmdLine(dict, argc, argv);
   }
@@ -26,6 +29,7 @@ int main(int argc, char *argv[], char *envp[])
   // Read from environment variable
   readEnv(dict);
 
+  //Print the Dictionary
   print_dict(dict);
 
   return 0;

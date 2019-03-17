@@ -1,6 +1,6 @@
 #include "fileReader.h"
 
-//Sets the static variables 
+//Sets the static variables
 static int fd = -1;
 static char buffer[BUF_SIZE];
 static unsigned int offset = 0;
@@ -64,7 +64,7 @@ char getNextChar(FileReader *reader)
   int offset = getFileReaderOffset(reader);
   char *buffer = getFileReaderBuffer(reader);
 
-  // If we have reached the end of the buffer, read more character
+  // If we have reached the end of the buffer, read more characters
   if (offset >= BUF_SIZE)
   {
 

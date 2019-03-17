@@ -155,9 +155,9 @@ void parseFile(Dictionary *dict, FileReader *reader)
     }
   }
 
+  // Add the last word that was being built
   if (pos > 0)
   {
-    // Add the last word that was being built
     word[pos] = '\0';
 
     add_word(word, dict);

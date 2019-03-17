@@ -1,4 +1,5 @@
 
+Video Demonstration: 
 
 REQUIRMENTS
 1) Include a Makefile that compiles your submitted code.
@@ -26,9 +27,14 @@ REQUIRMENTS
     - dictionary.h, fileReader.h -> Contain the Dictionary and FileReader structs and defines them as such.
 
 9) use pointers.
+    - used throughout the program.
 
 10) use only system calls for I/O.
+    - Input is handled in the fileReader.c file
+    - Output is handled in the printer.c file
 
 11) align output using only system calls for I/O.
+    - alignment uses the allowed sprintf() function in printer.c
 
 12) provide error checking for all system and library calls.
+    - the above mentioned IO classes exit the program when the receive a -1 return value.

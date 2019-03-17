@@ -9,6 +9,7 @@
 
 void printCharArr(char *arr, int length);
 void printStr(char *string);
+void printErr(int errno);
 
 void printKeyValuePair(char *key, int value, int whitespace);
 

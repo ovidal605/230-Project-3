@@ -12,8 +12,6 @@ Dictionary *dict_create(char *w, int c, Dictionary *n)
     newDict->count = c;
     newDict->next = n;
 
-    //printf("Copy: %s\n", wordCopy);
-
     return newDict;
 }
 
@@ -78,8 +76,9 @@ void print_dict(Dictionary *dict)
     {
         printKeyValuePair(dict->word, get_int(dict), 26);
         dict = get_next(dict);
-        if(counter == 15){
-            printf("Press ENTER to view the next 15 words.\n\n");
+        if (counter == 15)
+        {
+            printStr("Press ENTER to view the next 15 words.\n\n");
             getchar();
             counter = 0;
         }
@@ -87,7 +86,12 @@ void print_dict(Dictionary *dict)
     }
 }
 
-void free_dict(Dictionary dict){
-    free(dict->word);
-    free(dict);
+void free_dict(Dictionary *dict)
+{
+    if (dict != NULL)
+    {
+        free_dict(get_next(dict));
+        free(dict->word);
+        free(dict);
+    }
 }

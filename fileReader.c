@@ -22,7 +22,8 @@ FileReader *openFile(char *path)
 
   if (fd == -1)
   {
-    return NULL;
+    printErr(errno);
+    exit(0);
   }
 
   return createReader(fd);
@@ -33,10 +34,14 @@ int closeReader(FileReader *reader)
   if (!reader)
     return 0;
 
-  // refuse to close standard io files
-  if (getFileReaderFD(reader) > 2)
-    return close(fd);
+  // refuse to close standard io files and check for close errors
+  if (getFileReaderFD(reader) > 2 && close(getFileReaderFD(reader)) == -1)
+  {
+    printErr(errno);
+    exit(0);
+  }
 
+  // Free the memory associated with the file
   free(reader->buffer);
   free(reader);
 
@@ -54,6 +59,12 @@ char getNextChar(FileReader *reader)
   {
 
     ssize_t bytesRead = read(fd, buffer, BUF_SIZE);
+
+    if (bytesRead == -1)
+    {
+      printErr(errno);
+      exit(0);
+    }
 
     // if we have reached the end of the file add an end of file charater
     if (bytesRead < BUF_SIZE)

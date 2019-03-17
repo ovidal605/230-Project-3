@@ -26,6 +26,6 @@ void add_word(char *word, Dictionary *dict);
 
 void print_dict(Dictionary *dict);
 
-void free_dict(Dictionary dict);
+void free_dict(Dictionary *dict);
 
 #endif

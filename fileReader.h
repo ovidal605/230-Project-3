@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <errno.h>
+#include "printer.h"
 
 #define BUF_SIZE 1024
 #define END 3

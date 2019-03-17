@@ -2,12 +2,22 @@
 
 void printCharArr(char *arr, int length)
 {
-  write(STDOUT_FILENO, arr, length);
+  if (write(STDOUT_FILENO, arr, length) == -1)
+  {
+    exit(0);
+  }
 }
 
 void printStr(char *str)
 {
   printCharArr(str, strlen(str));
+}
+
+void printErr(int err)
+{
+  char out[50];
+  int size = sprintf(out, "Error %d encountered.\n", err);
+  printCharArr(out, size);
 }
 
 void printKeyValuePair(char *key, int value, int whitespace)

@@ -7,20 +7,20 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-  //Title
+  // Title
   printStr("Word Freak Text Analyzer\n");
   printStr("------------------------\n");
 
-  //Creates Dictionary
+  // Creates Dictionary
   Dictionary *dict = dict_create("HEAD", 0, NULL);
 
-  //If there are no command line arguments read from STDIN
+  // If there are no command line arguments read from STDIN
   if (argc == 1)
   {
     readStdIn(dict);
     printStr("\n");
   }
-  //If there are more than one command line arguments read from commandline arguments
+  // If there are more than one command line arguments read from commandline arguments
   else if (argc > 1)
   {
     readCmdLine(dict, argc, argv);
@@ -155,7 +155,7 @@ void parseFile(Dictionary *dict, FileReader *reader)
     }
   }
 
-  // Add the last word that was being built
+  // add the last word that was being built
   if (pos > 0)
   {
     word[pos] = '\0';

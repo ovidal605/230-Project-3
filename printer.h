@@ -10,6 +10,6 @@
 //Prototypes
 void printCharArr(char *arr, int length);
 void printStr(char *string);
-void printErr(int errno);
+void printErr(int err);
 void printKeyValuePair(char *key, int value, int whitespace);
 #endif

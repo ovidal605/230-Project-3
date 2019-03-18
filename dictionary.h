@@ -15,19 +15,18 @@ typedef struct Dictionary
 } Dictionary;
 
 //Prototypes
-void word_increase(Dictionary *currWord);
-void word_add(Dictionary *dict, Dictionary *word);
-void set_next(Dictionary *dict, Dictionary *next);
+void wordIncrease(Dictionary *currWord);
+void setNext(Dictionary *dict, Dictionary *next);
 void setWord(Dictionary *dict, char *word);
 void setCount(Dictionary *dict, int count);
-void add_word(char *word, Dictionary *dict);
-void print_dict(Dictionary *dict);
-void free_dict(Dictionary *dict);
+void addWord(char *word, Dictionary *dict);
+void printDict(Dictionary *dict);
+void freeDict(Dictionary *dict);
 
-Dictionary *get_next(Dictionary *dict);
-Dictionary *dict_create(char *w, int c, Dictionary *n);
+Dictionary *getNext(Dictionary *dict);
+Dictionary *dictCreate(char *w, int c, Dictionary *n);
 
-char *get_word(Dictionary *dict);
+char *getWord(Dictionary *dict);
 
-int get_int(Dictionary *dict);
+int getCount(Dictionary *dict);
 #endif

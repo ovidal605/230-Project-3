@@ -1,11 +1,17 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
+/* Unused
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+*/
+
+#include <unistd.h>
 #include <stdbool.h>
 #include "fileReader.h"
+#include "printer.h"
+#include "dictionary.h"
 
 //Prototypes
 void readStdIn(Dictionary *dict);

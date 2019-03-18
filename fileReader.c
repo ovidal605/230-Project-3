@@ -1,33 +1,32 @@
 #include "fileReader.h"
 
-//Sets the static variables
-static int fd = -1;
-static char buffer[BUF_SIZE];
-static unsigned int offset = 0;
-
-//Returns a pointer to the FileReader
+/*
+ * Returns a new Filereader from an open file descriptor
+ */
 FileReader *createReader(int fd)
 {
-  //Creates and allocates space for a FileReader struct
+  // Creates and allocates space for a FileReader struct
   FileReader *reader = malloc(sizeof(FileReader));
 
-  //Allocates space for the buffer
+  // Allocates space for the buffer
   reader->buffer = malloc(BUF_SIZE * sizeof(char));
 
-  //Sets the File reader and the offset
+  // Sets the File reader and the offset
   setFileReaderFD(reader, fd);
   setFileReaderOffset(reader, BUF_SIZE);
 
   return reader;
 }
 
-//Returns the FileReader
+/*
+ * Returns a new FileReader from a file at the given path
+ */
 FileReader *openFile(char *path)
 {
-  //Attempts to open the file in read only mode
-  fd = open(path, O_RDONLY);
+  // Attempts to open the file in read only mode
+  int fd = open(path, O_RDONLY);
 
-  //If there is an error print the error and exit the program
+  // If there is an error print the error and exit the program
   if (fd == -1)
   {
     printErr(errno);
@@ -37,7 +36,9 @@ FileReader *openFile(char *path)
   return createReader(fd);
 }
 
-//Closes and frees the FileReader
+/*
+ * Closes and frees a FileReader
+ */
 int closeReader(FileReader *reader)
 {
   if (!reader)
@@ -57,7 +58,11 @@ int closeReader(FileReader *reader)
   return 0;
 }
 
-//Gets the next character
+/*
+ * Gets the next character the FileReaders buffer.
+ * If the offset is at the end of the buffer, read more character into the buffer.
+ * If no characters are left to read, add an end of file character 
+ */
 char getNextChar(FileReader *reader)
 {
   int fd = getFileReaderFD(reader);
@@ -92,31 +97,41 @@ char getNextChar(FileReader *reader)
   return buffer[offset];
 }
 
-//Gets the FileReader
+/*
+ * Gets the file descriptor from a FileReader
+ */
 int getFileReaderFD(FileReader *reader)
 {
   return reader->fd;
 }
 
-//Gets the offset
+/*
+ * Gets the offset from a FileReader
+ */
 int getFileReaderOffset(FileReader *reader)
 {
   return reader->offset;
 }
 
-//Gets a pointer to the buffer
+/*
+ * Gets the buffer from a FileReader
+ */
 char *getFileReaderBuffer(FileReader *reader)
 {
   return reader->buffer;
 }
 
-//Sets the FileReader
+/*
+ * Sets the file descriptor of a FileReader
+ */
 void setFileReaderFD(FileReader *reader, int fd)
 {
   reader->fd = fd;
 }
 
-//Sets the offset
+/*
+ * Sets the offset of a FileReader
+ */
 void setFileReaderOffset(FileReader *reader, int offset)
 {
   reader->offset = offset;

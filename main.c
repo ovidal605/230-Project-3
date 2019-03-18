@@ -12,7 +12,7 @@ int main(int argc, char *argv[], char *envp[])
   printStr("------------------------\n");
 
   // Creates Dictionary
-  Dictionary *dict = dict_create("HEAD", 0, NULL);
+  Dictionary *dict = dictCreate("HEAD", 0, NULL);
 
   // If there are no command line arguments read from STDIN
   if (argc == 1)
@@ -30,7 +30,7 @@ int main(int argc, char *argv[], char *envp[])
   readEnv(dict);
 
   //Print the Dictionary
-  print_dict(dict);
+  printDict(dict);
 
   return 0;
 }
@@ -146,7 +146,7 @@ void parseFile(Dictionary *dict, FileReader *reader)
         // add the null character to make it a string
         word[pos] = '\0';
 
-        add_word(word, dict);
+        addWord(word, dict);
 
         free(word);
         word = malloc(100 * sizeof(char));
@@ -160,7 +160,7 @@ void parseFile(Dictionary *dict, FileReader *reader)
   {
     word[pos] = '\0';
 
-    add_word(word, dict);
+    addWord(word, dict);
 
     free(word);
   }

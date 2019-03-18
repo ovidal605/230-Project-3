@@ -1,7 +1,7 @@
 #include "dictionary.h"
 
 //Returns a pointer to a Dictionary struct
-Dictionary *dict_create(char *w, int c, Dictionary *n)
+Dictionary *dictCreate(char *w, int c, Dictionary *n)
 {
     //Allocates memory for the word and copies the word
     char *wordCopy = malloc((strlen(w) + 1) * sizeof(char));
@@ -13,7 +13,7 @@ Dictionary *dict_create(char *w, int c, Dictionary *n)
     //Sets the word, count, and next 
     setWord(newDict, wordCopy);
     setCount(newDict, c);
-    set_next(newDict, n);
+    setNext(newDict, n);
 
     return newDict;
 }
@@ -29,109 +29,97 @@ void setCount(Dictionary *dict, int count){
 }
 
 //Increases the count of the word
-void word_increase(Dictionary *currWord)
+void increaseWord(Dictionary *currWord)
 {
     ++(currWord->count);
 }
 
 //Gets the word in the dictionary
-char *get_word(Dictionary *dict)
+char *getWord(Dictionary *dict)
 {
     return dict->word;
 }
 
 //Gets the count of the word
-int get_int(Dictionary *dict)
+int getCount(Dictionary *dict)
 {
     return dict->count;
 }
 
 //Gets the next word in the dictionary
-Dictionary *get_next(Dictionary *dict)
+Dictionary *getNext(Dictionary *dict)
 {
     return dict->next;
 }
 
 //Sets the next word in the dictionary
-void set_next(Dictionary *dict, Dictionary *next)
+void setNext(Dictionary *dict, Dictionary *next)
 {
     dict->next = next;
 }
 
 //Adds a word to the dictionary
-void add_word(char *word, Dictionary *dict)
+void addWord(char *word, Dictionary *dict)
 {
     //If the Dictionary is empty
-    if (get_next(dict) == NULL)
+    if (getNext(dict) == NULL)
     {
         //Created a new Dictionary
-        Dictionary *newWord = dict_create(word, 1, NULL);
+        Dictionary *newWord = dictCreate(word, 1, NULL);
         //Link the first dictionary to the new one
-        set_next(dict, newWord);
+        setNext(dict, newWord);
     }
     else
     {
         //Get the first word in the Dictionary and the previous word
-        Dictionary *currWord = get_next(dict);
+        Dictionary *currWord = getNext(dict);
         Dictionary *lastWord = dict;
 
         //While the end is not reached
         while (currWord != NULL)
         {
             //If the word is in the dictionary increase the count and return 
-            if (strcmp(get_word(currWord), word) == 0)
+            if (strcmp(getWord(currWord), word) == 0)
             {
-                word_increase(currWord);
+                increaseWord(currWord);
                 return;
             }
             //The last word becomes the current word
             lastWord = currWord;
             //The current word becomes the next word in the Dictionary
-            currWord = get_next(currWord);
+            currWord = getNext(currWord);
         }
 
         //If the word is not in the Dictionary create a new word and add it to the end
-        Dictionary *newWord = dict_create(word, 1, NULL);
-        set_next(lastWord, newWord);
+        Dictionary *newWord = dictCreate(word, 1, NULL);
+        setNext(lastWord, newWord);
     }
 }
 
 //Prints the Dictionary
-void print_dict(Dictionary *dict)
+void printDict(Dictionary *dict)
 {   
     //Get the first word in the Dictionary
-    dict = get_next(dict);
-
-    //Sets a counter to print words in segments
-    int counter = 0;
+    dict = getNext(dict);
 
     //While the end of the Dictionary is not reached
     while (dict != NULL)
     {   
         //Print the word and its count
-        printKeyValuePair(dict->word, get_int(dict), 26);
+        printKeyValuePair(dict->word, getCount(dict), 26);
         
         //Get the next word in the Dictionary
-        dict = get_next(dict);
-
-        //If 15 words are displayed ENTER must be pressed to print the next 15 words
-        if (counter == 15)
-        {
-            printStr("Press ENTER to view the next 15 words.\n\n");
-            getchar();
-            counter = 0;
-        }
-        ++counter;
+        dict = getNext(dict);
     }
 }
 
 //Frees the Dictionary
-void free_dict(Dictionary *dict)
+void freeDict(Dictionary *dict)
 {
     //If the dictionary is not empty free the link, word, and Dictionary
     if (dict != NULL)
     {
-        free_dict(get_next(dict));
+        freeDict(getNext(dict));
         free(dict->word);
         free(dict);
     }
